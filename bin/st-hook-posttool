@@ -1,0 +1,24 @@
+#!/bin/sh
+# Session tracker PostToolUse hook. It runs on every tool call, so it starts Python only when the calling thread has a
+# pending reload after compaction (see tracker/restore.py); Python then reads the payload properly and decides.
+# $1 is the Python interpreter chosen at install time.
+[ -n "${ST_DISABLE:-}" ] && { cat >/dev/null; exit 0; }
+dir="${ST_DATA_DIR:-$HOME/.session-tracker}/restore"
+py="${1:-python3}"
+for marker in "$dir"/*; do
+  [ -e "$marker" ] && break
+done
+if [ ! -e "$marker" ]; then
+  cat >/dev/null
+  exit 0
+fi
+payload=$(cat)
+ids=$(printf '%s' "$payload" | grep -oE '"(agent_id|session_id)"[[:space:]]*:[[:space:]]*"[A-Za-z0-9_-]+"' | sed -E 's/.*"([A-Za-z0-9_-]+)"$/\1/')
+for id in $ids; do
+  if [ -e "$dir/$id" ]; then
+    exec "$py" "$(dirname "$0")/st-hook" <<EOF
+$payload
+EOF
+  fi
+done
+exit 0

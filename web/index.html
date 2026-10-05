@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Session Tracker</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='28' fill='%23D97757'/%3E%3Ccircle cx='32' cy='32' r='10' fill='%23FAF9F5'/%3E%3C/svg%3E">
+<script>(function(){var t=localStorage.getItem('st-theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.classList.add('dark');})();</script>
+<link rel="stylesheet" href="/app.css">
+<script src="/vendor/marked.umd.js"></script>
+<script src="/vendor/purify.min.js"></script>
+<script src="/vendor/lucide-icons.js"></script>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="/" data-nav=""><span class="logo"></span>Session Tracker</a>
+  <div class="search-wrap">
+    <input id="search" type="search" placeholder="Search sessions, todos, decisions, mistakes, issues, artifacts…  ( / )" autocomplete="off">
+    <div id="search-results" class="search-results hidden"></div>
+  </div>
+  <button id="health" class="health" title="Service health">…</button>
+  <button id="theme" class="icon-btn" type="button" title="Toggle dark mode" aria-label="Toggle dark mode"></button>
+</header>
+<div class="layout">
+  <aside id="sidebar">
+    <div class="side-tools">
+      <div class="side-row">
+        <div class="tree-search"><input id="tree-filter" type="search" placeholder="Filter by title, id or project" aria-label="Filter sessions by title, id or project" autocomplete="off"></div>
+        <button id="filter-btn" class="tool-btn" type="button" aria-haspopup="dialog" aria-expanded="false" title="Filter by status, activity, project…">Filter<span class="n hidden"></span></button>
+      </div>
+      <div class="side-row">
+        <label class="sort-label" for="sort-key">Sort</label>
+        <select id="sort-key"></select>
+        <button id="sort-dir" class="tool-btn" type="button"></button>
+      </div>
+      <div id="filter-bar" class="filter-bar hidden" aria-live="polite"></div>
+    </div>
+    <nav id="tree" class="tree" aria-label="Session tree"></nav>
+    <div id="side-resizer" class="side-resizer" role="separator" aria-orientation="vertical" aria-controls="sidebar" aria-label="Resize session list" tabindex="0" title="Drag to resize · double-click to reset"></div>
+  </aside>
+  <main id="main" tabindex="-1"></main>
+</div>
+<div id="viewer" class="viewer hidden" role="dialog" aria-modal="true"></div>
+<div id="toast" class="toast hidden" role="status"></div>
+<script src="/app.js"></script>
+</body>
+</html>
+
