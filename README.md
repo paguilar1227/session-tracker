@@ -250,3 +250,7 @@ Vendored in `web/vendor` (see [LICENSES.md](web/vendor/LICENSES.md)):
 - [DOMPurify](https://github.com/cure53/DOMPurify) (Apache-2.0 or MPL-2.0)
 - [gemoji](https://github.com/github/gemoji) emoji data (MIT)
 - [Lucide](https://lucide.dev) icons (ISC)
+
+## License
+
+MIT; see [LICENSE](LICENSE). Vendored third-party files keep their own licenses (listed above).
